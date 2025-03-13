@@ -163,64 +163,68 @@
     </a>
   </div>
 
-  <script>
+    <script>
     document.addEventListener("DOMContentLoaded", function () {
-      const carouselItems = document.querySelectorAll(".carousel-item");      
-      
-
-    // Script para el menú hamburguesa
-    document.addEventListener("DOMContentLoaded", function () {
+      // Script para el menú hamburguesa
       const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
       const navLinks = document.getElementById("nav-links");
-
+  
       // Alternar el menú al hacer clic en el botón
-      mobileMenuToggle.addEventListener("click", function () {
-        navLinks.classList.toggle("active");
-      });
-
-      // Cerrar el menú al hacer clic en un enlace
-      navLinks.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", function () {
-          navLinks.classList.remove("active");
+      if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener("click", function () {
+          navLinks.classList.toggle("active");
         });
-      });
-    });        
-    const imagesJsonUrl = 'https://mazuttier.github.io/MazuttierWeb/imagenes.json';
-    
-    async function loadCarouselImages() {
-      try {
-        // Obtener la lista de imágenes desde el archivo JSON
-        const response = await fetch(imagesJsonUrl);
-        const images = await response.json();
-
-        const carouselInner = document.getElementById('carousel-inner');
-
-        // Crear los elementos de las imágenes dinámicamente
-        carouselInner.innerHTML = images.map((img, index) => `
-          <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="https://mazuttier.github.io/MazuttierWeb/imagenes/${img}" alt="Imagen ${index + 1}" />
-          </div>
-        `).join('');
-        
-        startCarousel();
-      } catch (error) {
-        console.error('Error al cargar las imágenes:', error);
+  
+        // Cerrar el menú al hacer clic en un enlace
+        navLinks.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", function () {
+            navLinks.classList.remove("active");
+          });
+        });
       }
-    }
-    
-    let currentIndex = 0;
-    function startCarousel() {
-      const carouselItems = document.querySelectorAll(".carousel-item");
-
-      setInterval(() => {
-        carouselItems[currentIndex].classList.remove("active");
-        currentIndex = (currentIndex + 1) % carouselItems.length;
-        carouselItems[currentIndex].classList.add("active");
-      }, 2000); // Cambiar imagen cada 5 segundos
-    }
-
-    // Cargar imágenes al cargar la página
-    window.onload = loadCarouselImages;
+  
+      // Cargar imágenes del carrusel
+      const imagesJsonUrl = 'https://mazuttier.github.io/MazuttierWeb/imagenes.json';
+  
+      async function loadCarouselImages() {
+        try {
+          // Obtener la lista de imágenes desde el archivo JSON
+          const response = await fetch(imagesJsonUrl);
+          const images = await response.json();
+  
+          const carouselInner = document.getElementById('carousel-inner');
+  
+          // Crear los elementos de las imágenes dinámicamente
+          if (carouselInner) {
+            carouselInner.innerHTML = images.map((img, index) => `
+              <div class="carousel-item ${index === 0 ? 'active' : ''}">
+                <img src="https://mazuttier.github.io/MazuttierWeb/imagenes/${img}" alt="Imagen ${index + 1}" />
+              </div>
+            `).join('');
+  
+            startCarousel();
+          }
+        } catch (error) {
+          console.error('Error al cargar las imágenes:', error);
+        }
+      }
+  
+      let currentIndex = 0;
+      function startCarousel() {
+        const carouselItems = document.querySelectorAll(".carousel-item");
+  
+        if (carouselItems.length > 0) {
+          setInterval(() => {
+            carouselItems[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % carouselItems.length;
+            carouselItems[currentIndex].classList.add("active");
+          }, 5000); // Cambiar imagen cada 5 segundos
+        }
+      }
+  
+      // Cargar imágenes al cargar la página
+      loadCarouselImages();
+    });
   </script>
 </body>
 </html>
