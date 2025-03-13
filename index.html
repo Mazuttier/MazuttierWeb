@@ -35,10 +35,18 @@
   </header>
   <section class="hero" id="inicio">
   <div class="hero-carousel">
-    <div class="carousel-inner" id="carousel-inner">
-      <!-- Las imágenes se cargarán dinámicamente aquí -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="imagenes/imagen1.jpg" alt="Imagen 1" />
+        </div>
+        <div class="carousel-item">
+          <img src="imagenes/imagen1.jpg"" alt="Imagen 2" />
+        </div>
+        <div class="carousel-item">
+          <img src="imagenes/imagen2.jpg" alt="Imagen 3" />
+        </div>
+      </div>
     </div>
-  </div>
   <!-- Contenido del carrusel (texto y botón) -->
   <div class="hero-content">
     <h1>Transforma tu pasión en una <span>carrera exitosa</span></h1>
@@ -165,66 +173,42 @@
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
-      // Script para el menú hamburguesa
+      const carouselItems = document.querySelectorAll(".carousel-item");
+      let currentIndex = 0;
+
+      function showNextImage() {
+        // Oculta la imagen actual
+        carouselItems[currentIndex].classList.remove("active");
+
+        // Avanza al siguiente índice
+        currentIndex = (currentIndex + 1) % carouselItems.length;
+
+        // Muestra la siguiente imagen
+        carouselItems[currentIndex].classList.add("active");
+      }
+
+      // Cambia la imagen cada 5 segundos
+      setInterval(showNextImage, 2000);
+    });
+
+    // Script para el menú hamburguesa
+    document.addEventListener("DOMContentLoaded", function () {
       const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
       const navLinks = document.getElementById("nav-links");
-  
+
       // Alternar el menú al hacer clic en el botón
-      if (mobileMenuToggle && navLinks) {
-        mobileMenuToggle.addEventListener("click", function () {
-          navLinks.classList.toggle("active");
+      mobileMenuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+      });
+
+      // Cerrar el menú al hacer clic en un enlace
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", function () {
+          navLinks.classList.remove("active");
         });
-  
-        // Cerrar el menú al hacer clic en un enlace
-        navLinks.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", function () {
-            navLinks.classList.remove("active");
-          });
-        });
-      }
-  
-      // Cargar imágenes del carrusel
-      const imagesJsonUrl = 'https://mazzutierschool.icu/imagenes.json';
-  
-      async function loadCarouselImages() {
-        try {
-          // Obtener la lista de imágenes desde el archivo JSON
-          const response = await fetch(imagesJsonUrl);
-          const images = await response.json();
-  
-          const carouselInner = document.getElementById('carousel-inner');
-  
-          // Crear los elementos de las imágenes dinámicamente
-          if (carouselInner) {
-            carouselInner.innerHTML = images.map((img, index) => `
-              <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                <img src="https://mazzutierschool.icu/imagenes/${img}" alt="Imagen ${index + 1}" />
-              </div>
-            `).join('');
-  
-            startCarousel();
-          }
-        } catch (error) {
-          console.error('Error al cargar las imágenes:', error);
-        }
-      }
-  
-      let currentIndex = 0;
-      function startCarousel() {
-        const carouselItems = document.querySelectorAll(".carousel-item");
-  
-        if (carouselItems.length > 0) {
-          setInterval(() => {
-            carouselItems[currentIndex].classList.remove("active");
-            currentIndex = (currentIndex + 1) % carouselItems.length;
-            carouselItems[currentIndex].classList.add("active");
-          }, 5000); // Cambiar imagen cada 5 segundos
-        }
-      }
-  
-      // Cargar imágenes al cargar la página
-      loadCarouselImages();
+      });
     });
+    
   </script>
 </body>
 </html>
