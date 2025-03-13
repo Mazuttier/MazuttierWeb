@@ -184,7 +184,7 @@
       }
   
       // Cargar imágenes del carrusel
-      const imagesJsonUrl = 'https://mazuttier.github.io/MazuttierWeb/imagenes.json';
+      const imagesJsonUrl = 'https://mazzutierschool.icu/imagenes.json';
   
       async function loadCarouselImages() {
         try {
@@ -198,7 +198,7 @@
           if (carouselInner) {
             carouselInner.innerHTML = images.map((img, index) => `
               <div class="carousel-item ${index === 0 ? 'active' : ''}">
-                <img src="https://mazuttier.github.io/MazuttierWeb/imagenes/${img}" alt="Imagen ${index + 1}" />
+                <img src="https://mazzutierschool.icu/imagenes/${img}" alt="Imagen ${index + 1}" />
               </div>
             `).join('');
   
