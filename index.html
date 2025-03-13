@@ -183,7 +183,7 @@
         });
       });
     });        
-    const imagesJsonUrl = 'https://Mazuttier.github.io/MazuttierWeb/imagenes.json';
+    const imagesJsonUrl = 'https://mazuttier.github.io/MazuttierWeb/imagenes.json';
     
     async function loadCarouselImages() {
       try {
@@ -196,7 +196,7 @@
         // Crear los elementos de las imágenes dinámicamente
         carouselInner.innerHTML = images.map((img, index) => `
           <div class="carousel-item ${index === 0 ? 'active' : ''}">
-            <img src="https://Mazuttier.github.io/MazuttierWeb/imagenes/${img}" alt="Imagen ${index + 1}" />
+            <img src="https://mazuttier.github.io/MazuttierWeb/imagenes/${img}" alt="Imagen ${index + 1}" />
           </div>
         `).join('');
         
